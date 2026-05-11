@@ -1,8 +1,10 @@
 # 🦅 ReachLens: Agentic Intelligence Engine (Single + Bulk)
 
-![Version](https://img.shields.io/badge/version-v5.5.0-blue.svg) ![Status](https://img.shields.io/badge/status-production--ready-green.svg) ![Stack](https://img.shields.io/badge/tech-MERN%20%2B%20Excel%20Processing-orange.svg)
+![Version](https://img.shields.io/badge/version-v5.5.0-blue.svg) ![Status](https://img.shields.io/badge/status-production--ready-green.svg) ![Stack](https://img.shields.io/badge/tech-MERN%20%2B%20Excel%20Processing-orange.svg) ![Deployment](https://img.shields.io/badge/deployed-Vercel-black?logo=vercel)
 
 **ReachLens** is a sophisticated analytics platform designed to measure true digital influence. This version supports both **Single URL Analysis** and **Bulk Excel Processing**, allowing for high-scale media impact tracking.
+
+🚀 **Live Demo**: [https://reachlens.vercel.app](https://reachlens.vercel.app)
 
 ---
 

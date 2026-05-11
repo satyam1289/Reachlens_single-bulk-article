@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { SearchBar } from './SearchBar';
 import { StatsCard } from './StatsCard';
 import { analyzeUrl } from '../api';
-import { BarChart3, Globe, MessageCircle, Share2, Twitter, Linkedin, Timer } from 'lucide-react';
+import { BarChart3, Globe, MessageCircle, Share2, Twitter, Linkedin, Timer, LayoutGrid, FileText } from 'lucide-react';
+import { BulkUpload } from './BulkUpload';
 
 export const Dashboard: React.FC = () => {
     const [loading, setLoading] = useState(false);
@@ -10,6 +11,7 @@ export const Dashboard: React.FC = () => {
     const [error, setError] = useState('');
     const [version, setVersion] = useState('v9');
     const [timer, setTimer] = useState(0);
+    const [mode, setMode] = useState<'single' | 'bulk'>('single');
 
     const startTimer = (seconds: number) => {
         setTimer(seconds);
@@ -146,7 +148,38 @@ export const Dashboard: React.FC = () => {
                     </p>
                 </div>
 
-                <SearchBar onSearch={handleSearch} loading={loading} />
+                <div className="flex justify-center mb-8">
+                    <div className="inline-flex p-1 bg-white border border-gray-100 rounded-xl shadow-sm">
+                        <button
+                            onClick={() => setMode('single')}
+                            className={`flex items-center space-x-2 px-6 py-2.5 rounded-lg text-sm font-bold transition-all ${
+                                mode === 'single' 
+                                    ? 'bg-blue-600 text-white shadow-md' 
+                                    : 'text-gray-500 hover:bg-gray-50'
+                            }`}
+                        >
+                            <FileText className="w-4 h-4" />
+                            <span>Single URL</span>
+                        </button>
+                        <button
+                            onClick={() => setMode('bulk')}
+                            className={`flex items-center space-x-2 px-6 py-2.5 rounded-lg text-sm font-bold transition-all ${
+                                mode === 'bulk' 
+                                    ? 'bg-blue-600 text-white shadow-md' 
+                                    : 'text-gray-500 hover:bg-gray-50'
+                            }`}
+                        >
+                            <LayoutGrid className="w-4 h-4" />
+                            <span>Bulk Analysis</span>
+                        </button>
+                    </div>
+                </div>
+
+                {mode === 'single' ? (
+                    <SearchBar onSearch={handleSearch} loading={loading} />
+                ) : (
+                    <BulkUpload version={version} />
+                )}
 
                 {/* Version Selector */}
                 <div className="flex flex-col items-center space-y-4">

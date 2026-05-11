@@ -1,100 +1,109 @@
-# 🦅 ReachLens: The Agentic Intelligence Engine
+# 🦅 ReachLens: Agentic Intelligence Engine (Single + Bulk)
 
-![Version](https://img.shields.io/badge/version-v5.0.0-blue.svg) ![Status](https://img.shields.io/badge/status-production--ready-green.svg) ![Stack](https://img.shields.io/badge/tech-MERN%20%2B%20Puppeteer-orange.svg)
+![Version](https://img.shields.io/badge/version-v5.5.0-blue.svg) ![Status](https://img.shields.io/badge/status-production--ready-green.svg) ![Stack](https://img.shields.io/badge/tech-MERN%20%2B%20Excel%20Processing-orange.svg)
 
-> **"Stop counting clicks. Start measuring influence."**
-
-**ReachLens** is a sophisticated analytics platform designed for the **AI Era**. Most PR tools just scrape "Domain Authority" and multiply it by generic traffic numbers. ReachLens goes deeper—using **Causal AI** to understand *why* content is spreading and **Agentic Logic** to predict if AI Agents (like Perplexity or Gemini) are consuming your content.
+**ReachLens** is a sophisticated analytics platform designed to measure true digital influence. This version supports both **Single URL Analysis** and **Bulk Excel Processing**, allowing for high-scale media impact tracking.
 
 ---
 
-## 🏗️ System Architecture
+## 🏗️ System Architecture & Flow
 
-How does ReachLens turn a simple URL into high-fidelity intelligence?
+### 1. High-Level Logic Flow
+ReachLens operates on a multi-stage intelligence pipeline that transforms raw URLs into actionable metrics.
 
 ```mermaid
 graph TD
-    User[User Inputs URL] -->|API Request| Backend[Node.js Server]
-    Backend -->|Phase 1| Scraper[Stealth Scraper]
+    User([User]) -->|Input: Single URL| Search[Single Search Engine]
+    User -->|Upload: Excel File| Bulk[Bulk Processing Engine]
     
-    subgraph "Dual-Core Extraction Engine"
-        Scraper -->|Attempt 1| Direct[Google Search Scraper]
-        Scraper -->|Attempt 2| Reddit[Reddit API Scraper]
-        Direct -.->|If Blocked| Fallback[Estimator Path]
+    subgraph "Data Extraction Phase"
+        Search -->|URL| Scraper[Stealth Scraper Service]
+        Bulk -->|Batch URLs| Scraper
+        Scraper -->|Google Data| Context[Contextual Analysis]
+        Scraper -->|Reddit Data| Social[Social Proofing]
     end
     
-    Direct -->|Raw Data| Analysis[Analysis Controller]
-    Reddit -->|Social Signals| Analysis
-    Fallback -->|Predicted Data| Analysis
-    
-    subgraph "ReachLens Logic Core (The Brain)"
-        Analysis -->|v2.0| Classic[Dual-Core Logic]
-        Analysis -->|v3.0| Context[Contextual Logic]
-        Analysis -->|v4.0| Causal[Causal Logic]
-        Analysis -->|v5.0| Agentic[Behavioral Engine]
+    subgraph "The Intelligence Core (The Brain)"
+        Context -->|Raw Signals| Engine{ReachLens Logic Core}
+        Social -->|Engagement| Engine
+        
+        Engine -->|v2.0| Dual[Dual-Core Logic]
+        Engine -->|v5.0| Agentic[Agentic Logic]
+        Engine -->|v9.0| Sovereign[Sovereign Causal Model]
     end
     
-    Agentic -->|Final Metrics| DB[(SQLite Database)]
-    DB -->|JSON| Dashboard[React Frontend]
+    subgraph "Output Generation"
+        Sovereign -->|JSON| UI[Interactive Dashboard]
+        Sovereign -->|Blob| Excel[Generated Excel Report]
+    end
+    
+    UI -->|Visualization| User
+    Excel -->|Download| User
+```
+
+### 2. Bulk Analysis Workflow
+The bulk feature follows a strictly sequential and secure processing path.
+
+```mermaid
+flowchart LR
+    A[Upload .xlsx] --> B[Parse First Column]
+    B --> C{Validate URLs}
+    C -->|Valid| D[Parallel Analysis]
+    C -->|Invalid| E[Skip/Report Error]
+    D --> F[Compile Metrics]
+    F --> G[Generate Formatted Excel]
+    G --> H[User Download Trigger]
 ```
 
 ---
 
-## 🔮 The Time Machine: 4 Generations of Logic
+## 🔮 Core Features
 
-ReachLens allows you to toggle between **4 distinct mathematical models** to see how reach calculation has evolved.
+### 🏢 Single Article Analysis
+*   **Real-time Scraping**: Evasion of bot detection to get fresh data.
+*   **Multi-Platform Dorking**: Correlating Google mentions with Reddit discussions.
+*   **Version Toggling**: Switch between 8+ mathematical models (v2.0 to v9.0).
 
-| Version | Name | Philosophy | Key Features | Best For |
-| :--- | :--- | :--- | :--- | :--- |
-| **v2.0** | **Dual-Core** | *"Trust but Verify"* | • Verified Search Count<br>• Linear Time Decay (-20%/week) | **Baseline Reporting**<br>Conservative, "old-school" PR metrics. |
-| **v3.0** | **Contextual** | *"Location Matters"* | • **Heat Map:** Hero links worth 2x<br>• **Industry Scaling:** Tech/Ent multipliers | **Accuracy**<br>Distinguishing between a headline feature and a footer link. |
-| **v4.0** | **Causal** | *"Why is it viral?"* | • **Sentiment Analysis:** Controversy = 1.5x Reach<br>• **Sigmoid Cliff:** Reach crashes after Day 4 | **Impact Analysis**<br>Understanding the "quality" of the coverage. |
-| **v5.0** | **Agentic** | *"The Future"* | • **Agentic Gatekeeper:** AI Citations = Gold Badge<br>• **Frozen Decay:** Perpetual traffic tail<br>• **SISI:** Social Influence Strength Index | **2026+ Strategy**<br>Optimizing for AI Agents, not just humans. |
+### 📊 Bulk Processing (New!)
+*   **Excel Integration**: Upload your media lists directly.
+*   **Standardized Metrics**: Every URL in your sheet gets the same high-fidelity analysis.
+*   **No Auto-Download**: Full control—download the report only when you are ready.
+*   **Clean Output**: Reports are perfectly formatted with commas and headers matching the dashboard.
 
 ---
 
-## 📂 Project Anatomy
+## 📁 Analysis Metrics Explained
 
-Understanding the codebase structure in `e:/MAVERICKS/wizikey`.
-
-### `/server` (The Brain)
--   **`src/services/ScraperService.ts`**: The eyes of the system. Uses `puppeteer-extra-plugin-stealth` to evade bot detection and scrape Google.
--   **`src/services/ReachEstimator.ts`**: The core CPU. This single file contains all the math for v2, v3, v4, and v5. **Edit this to tune the algorithm.**
--   **`src/controllers/AnalysisController.ts`**: The conductor. Receives the request, picks the version, calls the scraper, and saves results.
--   **`reachlens.db`**: A local SQLite database storing every snapshot.
-
-### `/client` (The Face)
--   **`src/components/Dashboard.tsx`**: The main command center. Handles the "Version Toggle" state.
--   **`src/components/StatsCard.tsx`**: Reusable UI component for displaying "Agentic Rank", "Reach", etc.
--   **`src/api.ts`**: The bridge between Client and Server.
+| Metric | Description |
+| :--- | :--- |
+| **Total Mentions** | The raw sum of indexed mentions across Google and Social. |
+| **Agentic Rank** | Identifies if content is cited by AI Agents (ChatGPT, Perplexity). |
+| **Estimated Reach** | Causal AI prediction of total human impressions. |
+| **Truth Confidence** | The statistical certainty of the reach number (up to 99.2%). |
+| **UVR (Unique Reach)** | Deduplicated audience size (Real Unique Humans). |
+| **Social Diffusion** | Shannon Entropy score measuring how organically content spreads. |
+| **Growth Velocity** | The momentum of the content's spread in the last 24-48h. |
 
 ---
 
 ## 🚀 Quick Start Guide
 
-### 1. Prerequisites
--   **Node.js**: v18 or higher.
--   **NPM**: Installed automatically with Node.
-
-### 2. Installation
-Open your terminal and run:
-
+### 1. Installation
 ```bash
-# Clone or Download the project
-cd e:/MAVERICKS/wizikey
+# Clone the repository
+# git clone https://github.com/developermavericks/Reach_lens.git
 
 # Install Backend
 cd server
 npm install
+npm run build
 
 # Install Frontend
 cd ../client
 npm install
 ```
 
-### 3. Running the Engine
-You need **two** terminal windows open.
-
+### 2. Running the Engine
 **Terminal 1 (Backend):**
 ```bash
 cd server
@@ -111,27 +120,10 @@ npm run dev
 
 ---
 
-## 🔧 Troubleshooting
-
-### "The screen is blank!"
--   **Cause**: Usually a Backend connection error or a UI bug.
--   **Fix**: Check the Console (F12) for errors. If it says `Network Error`, ensure the Server is running on port 3000.
-
-### "Scraping Failed / CAPTCHA Detected"
--   **Cause**: Google has flagged the IP.
--   **Fix**: The system automatically switches to the **Estimator Path** (v2 logic) as a fallback. You will see "Confidence: 65%" in the UI.
-
-### "Agentic Rank is Gray"
--   **Cause**: The URL was not cited by a major AI engine (Perplexity, Gemini, etc.).
--   **Fix**: Try a URL from a major tech blog or high-ranking Wikipedia article to see the "Gold" badge.
-
----
-
 ## 📝 Developer Notes
-
--   **Database**: The SQLite DB is created automatically at `server/reachlens.db`. You can view it with any SQLite viewer.
--   **Env Vars**: Create a `.env` in `/server` if you need to change the port (default 3000).
+*   **Excel Requirements**: Ensure your URLs are in the **first column** of the `.xlsx` file.
+*   **Stateless**: This version is optimized for cloud deployment and does not require a persistent local database.
+*   **Math Tuning**: To adjust the reach formulas, see `server/src/services/ReachEstimator.ts`.
 
 ---
-
 *Built with ❤️ by the Tech Team | 2026*

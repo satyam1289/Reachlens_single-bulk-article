@@ -4,7 +4,7 @@
 
 **ReachLens** is a sophisticated analytics platform designed to measure true digital influence. This version supports both **Single URL Analysis** and **Bulk Excel Processing**, allowing for high-scale media impact tracking.
 
-🚀 **Live Demo**: [https://reachlens.vercel.app](https://reachlens.vercel.app)
+🚀 **Live Demo**: [https://reachlens-analytics-fixed.vercel.app](https://reachlens-analytics-fixed.vercel.app)
 
 ---
 
@@ -95,14 +95,12 @@ flowchart LR
 # Clone the repository
 # git clone https://github.com/developermavericks/Reach_lens.git
 
-# Install Backend
-cd server
+# Install Everything
 npm install
-npm run build
 
-# Install Frontend
-cd ../client
-npm install
+# Build Frontend
+cd client
+npm run build
 ```
 
 ### 2. Running the Engine
@@ -110,7 +108,7 @@ npm install
 ```bash
 cd server
 npm start
-# Server runs on http://localhost:3000
+# Server runs on http://localhost:2000
 ```
 
 **Terminal 2 (Frontend):**

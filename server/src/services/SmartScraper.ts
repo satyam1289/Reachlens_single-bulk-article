@@ -49,6 +49,22 @@ export class SmartScraper {
 
         this.isProcessing = true;
         let browser;
+
+        if (process.env.VERCEL) {
+            this.isProcessing = false;
+            console.log(`[SmartScraper] Vercel environment detected - using ReachEstimator fallback`);
+            const estimate = ReachEstimator.estimate(url, title || '');
+            return {
+                title: title || '',
+                url,
+                totalMentions: estimate.mentions,
+                domains: [],
+                prominenceScore: 0,
+                source: 'Estimator',
+                status: 'Fallback'
+            };
+        }
+
         try {
             console.log(`[SmartScraper] Launching stealth browser for ${url}`);
             browser = await (puppeteerExtra as any).launch({

@@ -217,8 +217,12 @@ export const analyzeBulk = async (req: Request, res: Response) => {
         }
         const data: any[] = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-        // Extract URLs from first column, skip header if present or assume first column is URLs
-        const urls = data.map(row => row[0]).filter(url => url && typeof url === 'string' && url.startsWith('http'));
+        // Extract URLs from first column, handle headers, trim, and validate
+        const urls = data
+            .map(row => (Array.isArray(row) && row.length > 0) ? row[0] : null)
+            .filter(val => val !== undefined && val !== null && val !== '')
+            .map(val => String(val).trim())
+            .filter(val => val.toLowerCase().startsWith('http'));
 
         if (urls.length === 0) {
             res.status(400).json({ error: 'No valid URLs found in the first column of the Excel file' });

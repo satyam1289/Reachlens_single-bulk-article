@@ -229,11 +229,11 @@ export const analyzeBulk = async (req: Request, res: Response) => {
             return;
         }
 
-        const results = [];
-        for (const url of urls) {
+        // Process URLs in parallel to avoid Vercel timeouts
+        const analysisPromises = urls.map(async (url) => {
             try {
                 const result = await performAnalysis(url, version);
-                results.push({
+                return {
                     'URL': result.url,
                     'Total Mentions': result.totalMentions,
                     'Agentic Rank': result.agenticStatus || "None",
@@ -245,9 +245,10 @@ export const analyzeBulk = async (req: Request, res: Response) => {
                     'Social Diffusion': (result.modifiers as any).entropy ? (result.modifiers as any).entropy.toFixed(2) : "0.00",
                     'Sentiment Impact': result.sentimentScore > 1 ? "Positive" : result.sentimentScore < -1 ? "Controversial" : "Neutral",
                     'Growth Velocity': result.velocity
-                });
+                };
             } catch (err) {
-                results.push({
+                console.error(`Failed to analyze ${url}:`, err);
+                return {
                     'URL': url,
                     'Total Mentions': 'N/A',
                     'Agentic Rank': 'N/A',
@@ -259,9 +260,11 @@ export const analyzeBulk = async (req: Request, res: Response) => {
                     'Social Diffusion': 'N/A',
                     'Sentiment Impact': 'N/A',
                     'Growth Velocity': 'N/A'
-                });
+                };
             }
-        }
+        });
+
+        const results = await Promise.all(analysisPromises);
 
         // Create new workbook with results
         const newWs = XLSX.utils.json_to_sheet(results);

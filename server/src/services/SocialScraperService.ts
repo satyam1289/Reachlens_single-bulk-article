@@ -5,7 +5,8 @@ export class SocialScraperService {
         try {
             const response = await axios.get('https://www.reddit.com/search.json', {
                 params: { q: url, sort: 'new', limit: 25 },
-                headers: { 'User-Agent': 'ReachLens/1.0' }
+                headers: { 'User-Agent': 'ReachLens/1.0' },
+                timeout: 5000
             });
 
             const posts = response.data?.data?.children || [];

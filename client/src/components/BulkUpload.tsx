@@ -42,8 +42,8 @@ export const BulkUpload: React.FC<Props> = ({ version }) => {
             const url = window.URL.createObjectURL(blob);
             setDownloadUrl(url);
             setSuccess(true);
-        } catch (err) {
-            setError('Bulk analysis failed. Please ensure the Excel file contains valid URLs in the first column.');
+        } catch (err: any) {
+            setError(err.message || 'Bulk analysis failed. Please ensure the Excel file contains valid URLs in the first column.');
             console.error(err);
         } finally {
             setLoading(false);

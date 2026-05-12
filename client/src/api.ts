@@ -22,7 +22,8 @@ export const analyzeBulk = async (file: File, version: string = 'v5') => {
     });
     
     if (!response.ok) {
-        throw new Error('Bulk analysis failed');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Bulk analysis failed');
     }
     
     return await response.blob();
